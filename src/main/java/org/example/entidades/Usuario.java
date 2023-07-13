@@ -1,5 +1,7 @@
 package org.example.entidades;
 
+import org.example.validaciones.UsuarioValidacion;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,6 +13,7 @@ public class Usuario {
     private String correo;
     private Integer ubicacion;
 
+    protected UsuarioValidacion validacion=new UsuarioValidacion();
     public Usuario() {
     }
 
@@ -42,16 +45,13 @@ public class Usuario {
         return nombres;
     }
 
-    public void setNombres(String nombres) throws Exception {
-        String patronNombre = "^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\\s]+$";
-        Pattern patron = Pattern.compile(patronNombre);
-        Matcher coincidencia = patron.matcher(nombres);
-
-        if (coincidencia.matches()&& nombres.length()>=10) {
-            this.nombres=nombres;
-        } else {
-            throw new Exception("Nombre invalido");
-        }
+    public void setNombres(String nombres)  {
+       try {
+           this.validacion.validarNombres(nombres);
+           this.nombres=nombres;
+       }catch (Exception error){
+           System.out.println("\u001B[31m" + error.getMessage() + "\u001B[0m");
+       }
     }
 
     public String getCorreo() {
