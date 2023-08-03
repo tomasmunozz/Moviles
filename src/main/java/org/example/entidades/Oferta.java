@@ -10,7 +10,6 @@ public class Oferta {
     private LocalDate fechaInicio;
     private LocalDate fechaFin;
     private Double costoPersona;
-    private Integer numero;
     private Local local;
 
     public Oferta() {
